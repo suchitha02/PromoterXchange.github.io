@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Content Boxes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"  />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .container {
+            position: relative;
+            width: 1200px;
+            height: 300px;
+            margin: 60px auto;
+        }
+
+        .container .box {
+            position: relative;
+            width: calc(400px - 30px);
+            height: calc(300px - 30px);
+            background: #d8bf36;
+            float: left;
+            margin: 15px;
+            box-sizing: border-box;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .container .box .icon{
+            position:absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #041858;
+            transition: 0.5s;
+            z-index: 1;
+        }
+        .container .box:hover .icon{
+            top: 20px;
+            left: calc(50% - 40px);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+        .container .box .icon .fa{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            transition: 0.5s;
+            color: #ffffff;
+        }
+        .container .box:hover .icon .fa{
+            font-size: 40px;
+
+        }
+        .container .box .content{
+            position: absolute;
+            top:100%;
+            height: calc(100% - 100px);
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: 0.5s;
+            opacity: 0;
+
+        }
+        .container .box:hover .content{
+            top: 100px;
+            opacity: 1;
+        }
+        .container .box .content h3{
+            margin:0 0 10px;
+            padding: 0;
+            color: black;
+            font-size: 24px;
+
+        }
+        .container .box .content p{
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+
+        .about{
+            margin: 30px;
+            padding: 5px;
+        }
+        .about h1{
+            text-align: center;
+            color: black;
+            font-weight: bold;
+            font-size: 50px;
+
+        }
+        .about p{
+            text-align: center;
+            padding: 3px;
+            color:black;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="about">
+            <h1>ABOUT US</h1>
+            <p>The  app offers users the convenience of accessing the platform's services and features on mobile devices, enabling freelancers and clients to connect, collaborate, and manage projects on the go. While I can't provide specific details about the current version of the app, here are some general features and functionalities .</p>
+
+        </div>
+
+        <div class="box">
+            <div class="icon"><i class="fa fa-pen" aria-hidden="true"></i></div>
+            <div class="content">
+                <h3>MISSION</h3>
+                <p>Our mission is to democratize access to professional services and provide opportunities for freelancers worldwide to showcase their skills and connect with clients. They aim to create a platform that empowers individuals and businesses to accomplish their goals efficiently and affordably.</p>
+            </div>
+        </div>
+
+
+        <div class="box"> 
+            <div class="icon"><i class="fa fa-book" ></i></div>
+            <div class="content">
+                <h3>VISION</h3>
+                <p> Our envisions a world where talent is not limited by geographic location or traditional employment structures. They aspire to be the go-to destination for anyone seeking freelance services, offering a seamless and secure platform for collaboration and growth.</p>
+            </div>
+       </div>
+
+
+        <div class="box">
+            <div class="icon"><i class="fa fa-info" aria-hidden="true"></i> </div>
+            <div class="content">
+                <h3>ACHIEVEMENTS</h3>
+                <p>The platform hosts a diverse range of service categories, spanning from creative and design to business, technology, and lifestyle, catering to the needs of individuals and businesses across various industries.</p>
+            </div>
+        </div>
+       
+    </div>
+</body>
+</html>

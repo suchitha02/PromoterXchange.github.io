@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ webpage</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root{
+    --primaryColor: #041858;
+    --softColor: #fedddd;
+    --whiteColor: #f5f5f5;
+    --blackColor: #222;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    width: 100%;
+    height: auto;
+    padding: 3%;
+    background-color: #ffffff;
+}
+
+.header{
+    background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)) , url(f&q2.avif);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5% 3%;
+    border-radius: 30px;
+    max-height: 380px;
+    color: var(--whiteColor);
+
+}
+
+.header-title{
+    font-size: 48px;
+    letter-spacing: 1.5;
+}
+
+.header-desc{
+    font-size: 14px;
+    letter-spacing: 1;
+    text-align: center;
+}
+
+.search{
+    width: 60%;
+    height: 50px;
+    background-color: var(--whiteColor);
+    margin-top: 5%;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.search input{
+    width: 80%;
+    height: 100%;
+    padding: 1% 3%;
+    background: transparent;
+    border: none;
+}
+
+.search button{
+    width: 20%;
+    min-width: 100px;
+    height: 100%;
+    background-color: #d8bf36;
+    color: var(--whiteColor);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.search button:hover{
+    background: var(--blackColor);
+}
+
+.faq{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 3%;
+}
+
+.faq-name{
+    flex: 0.5;
+    padding: 2% 2% 0 0;
+}
+
+.faq-header{
+    padding: 5% 0 0 0;
+    font-size: 40px;
+    letter-spacing: 2;
+}
+
+.faq-img{
+    width: 100%;
+    max-width: 400px;
+}
+
+.faq-box{
+    flex: 1;
+    min-width: 320px;
+    padding: 2% 0 4% 4%;
+    border-left: 2px solid var(--primaryColor);
+}
+
+.faq-wrapper{
+    width: 100%;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--blackColor);
+}
+
+.faq-title{
+    display: block;
+    position: relative;
+    width: 100%;
+    letter-spacing: 1.2;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primaryColor);
+}
+
+.faq-title::after{
+    width: 10px;
+    height: 10px;
+    content: "";
+    float: right;
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    transform: rotate(135deg);
+    transition: 0.4s ease-in-out;
+}
+
+.faq-details{
+    line-height: 1.5;
+    letter-spacing: 1;
+    overflow: hidden;
+    max-height: 0;
+    transition: 0.3s ease-in-out;
+    font-size: 14px;
+}
+
+.faq-trigger{
+    display: none;
+
+}
+
+.faq-trigger:checked + .faq-title + .faq-details{
+    max-height: 300px;
+}
+
+.faq-trigger:checked + .faq-title::after{
+    transform: rotate(45deg);
+    transition: 0.4s ease-in-out;
+}
+
+@media screen and(max-width:680px){
+    .search{
+        width: 100%;
+    }
+
+    .faq-title{
+        font-size: 20px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="header-title">FAQ</h1>
+        <p class="header-desc">Frequently Asked Questions</p>
+
+        <div class="search">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+    </div>
+    <div class="faq">
+        <div class="faq-name">
+            <h1 class="faq-header">Have <br> questions?</h1>
+            <img class="faq-img" src="f&q1.avif">
+        </div>
+        <div class="faq-box">
+            <div class="faq-wrapper">
+                <input type="checkbox" class="faq-trigger" id="faq-trigger-1">
+                <label class="faq-title" for="faq-trigger-1">How do I communicate with sellers ?</label>
+                <div class="faq-details">
+                    <p>You can communicate with sellers simply click on the seller's profile or gig, and then click on the "Contact Seller" button to send them a message.</p>
+
+                </div>
+            </div>
+            <div class="faq-wrapper">
+                <input type="checkbox" class="faq-trigger" id="faq-trigger-2">
+                <label class="faq-title" for="faq-trigger-2">How to ensure quality and reliability of services?</label>
+                <div class="faq-details">
+                    <p>We maintains quality and reliability through a combination of seller ratings and reviews, dispute resolution processes, and our own quality control measures.</p>
+                </div>
+            </div>
+            <div class="faq-wrapper">
+                <input type="checkbox" class="faq-trigger" id="faq-trigger-3">
+                <label class="faq-title" for="faq-trigger-3">How do I pay for orders?</label>
+                <div class="faq-details">
+                    <p>You can pay for orders using various payment methods, including credit/debit cards, PayPal, Apple Pay, and more, depending on your location and preferences.</p>
+                </div>
+            </div>
+            <div class="faq-wrapper">
+                <input type="checkbox" class="faq-trigger" id="faq-trigger-4">
+                <label class="faq-title" for="faq-trigger-4">How do I become a seller?</label>
+                <div class="faq-details">
+                    <p>To become a seller, create a seller account, set up your profile, create gigs offering your services, and start marketing yourself to potential buyers. </p>
+                </div>
+            </div>
+            <div class="faq-wrapper">
+                <input type="checkbox" class="faq-trigger" id="faq-trigger-5">
+                <label class="faq-title" for="faq-trigger-5">What are fees and pricing structure?</label>
+                <div class="faq-details">
+                    <p>Charges a service fee of 20% on each transaction. Sellers set their own prices for their services, and buyers pay the listed price plus any applicable taxes or fees. </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+</body>
+</html>

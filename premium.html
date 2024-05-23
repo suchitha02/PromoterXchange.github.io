@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium</title>
+    <style>
+body {
+    padding: 0;
+    margin: 0;
+    background: #1e1e21;
+    color: #fff;
+}
+
+h2 {
+    font-size: 30px;
+    color: #fff;
+}
+
+p {
+    color: #eee7e7;
+}
+
+.has-tooltip:not(.tooltip-disabled) {
+    cursor: help;
+    position: relative;
+}
+
+.has-tooltip:not(.tooltip-disabled):hover .tooltip-container {
+    display: block;
+}
+
+.has-tooltip .tooltip-container {
+    display: none;
+    position: absolute;
+    background-color: #d8bf36;
+    color: #fff;
+    z-index: 20;
+    bottom: calc(100% + 13px);
+    left: -10px;
+    right: -10px;
+    padding: 16px 20px;
+    border-radius: 8px;
+}
+
+.has-tooltip .tooltip-container:after {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #d8bf36;
+    font-size: 0;
+    line-height: 0;
+    content: "";
+    position: absolute;
+    bottom: -10px;
+}
+
+.has-tooltip .tooltip-container h6 {
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0px;
+}
+
+.has-tooltip .tooltip-container p {
+    color: #555;
+    margin-top: 4px;
+}
+
+#pricing-container * {
+    box-sizing: border-box;
+}
+
+#pricing-container {
+    font-family: "Open Sans", Helvetica, Arial, Lucida, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    max-width: 1080px;
+    margin: 0 auto 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    line-height: 1;
+    color: #000;
+}
+
+#pricing-cards {
+    display: flex;
+    font-size: 14px;
+}
+
+.price-card {
+    background-color: #33333a;
+    color: #fff;
+    font-family: "Open Sans", Helvetica, Arial, Lucida, sans-serif;
+    display: block;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.25s;
+    position: relative;
+    margin: 0 6px;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.price-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.price-card--header {
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.price-card--header h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+    color: #fff;
+    font-family: "Raleway", Helvetica, Arial, Lucida, sans-serif;
+    font-weight: 700;
+}
+
+.price-card--price {
+    text-align: center;
+    padding: 28px 0 6px 0;
+}
+
+.price-card--price-text {
+    font-size: 48px;
+}
+
+.price-card--price-number {
+    font-weight: 500;
+    opacity: 0.89;
+}
+
+.odometer div {
+    display: inline-block;
+}
+
+.price-card--price-number:before {
+    content: "Rs.";
+    font-size: 24px;
+    top: -16px;
+    display: inline-block;
+    position: relative;
+}
+
+.price-card--price-number:after {
+    content: "/month";
+    font-size: 12px;
+    display: inline-block;
+    color: grey;
+}
+
+.price-card--price-conditions {
+    padding: 14px 0;
+    color: #888;
+    line-height: 1.5;
+}
+
+.price-card--cta {
+    padding: 0 20px 24px;
+    text-align: center;
+}
+
+.price-card--cta--button.btn {
+    min-width: 20px;
+    display: block;
+    max-width: 183px;
+    margin: 0 auto;
+}
+
+.price-card--features {
+    padding: 16px 0 20px;
+}
+
+.price-card--features ul {
+    padding: 0 32px;
+    list-style: none;
+    margin: 0;
+}
+
+.price-card--features li {
+    margin: 8px 0;
+    padding-left: 8px;
+    line-height: 1.5;
+    position: relative;
+}
+
+.price-card--features li:not(.features-disabled):before {
+    content: "✓";
+    color: #d8bf36;
+    display: block;
+    position: absolute;
+    left: -8px;
+}
+
+.price-card--features li.features-highlight {
+    font-weight: 600;
+}
+
+.price-card--features li.features-disabled {
+    opacity: 0.1;
+}
+
+.price-card--mobile-features-toggle {
+    text-align: center;
+    margin: 24px 0 0;
+    padding: 16px 0;
+    cursor: pointer;
+    display: none;
+    color: green;
+}
+
+.price-card--mobile-features-toggle:after {
+    content: "Show All Features ▾";
+}
+
+.price-card--mobile-features-toggle.hideall:after {
+    content: "Hide Features ▴";
+}
+
+.price-card--hero {
+    margin: -38px 6px 0;
+    z-index: 10;
+}
+
+.price-card--hero-text {
+    background-color: #d8bf36;
+    height: 38px;
+    color: white;
+    line-height: 38px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.only-yearly {
+    position: relative;
+}
+
+.only-yearly .price-card--price-number {
+    transition: opacity 0.2s;
+}
+
+.only-yearly .only-yearly--text {
+    position: absolute;
+    top: -0.2em;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+.only-yearly .only-yearly--text span {
+    font-size: 14px;
+}
+
+.only-yearly.if-monthly .price-card--price-number {
+    opacity: 0;
+}
+
+.only-yearly.if-monthly .only-yearly--text {
+    display: block;
+}
+
+#pricing-switch {
+    margin: 80px auto 100px;
+    text-align: center;
+    line-height: 1.4;
+    position: relative;
+    max-width: 1080px;
+}
+
+.switch-label {
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+    opacity: 0.4;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 20px;
+    color: #fff;
+}
+
+.save-money {
+    color: #4caf50;
+    font-style: italic;
+    padding-left: 8px;
+}
+
+.save-money--mobile {
+    color: #fff;
+}
+</style>
+</head>
+<body>
+    <section id="pricing-container">
+
+        <div id="pricing-switch">
+            <h2>Choose a plan</h2>
+            <span class="switch-label switch-label-monthly active"></span>
+            <label class="switch" id="">
+               
+                <span class="slider"></span>
+            </label>
+            <span class="switch-label switch-label-yearly "></span>
+    
+            <div class="save-money--mobile">Save your money with these Plans</div>
+    
+        </div>
+    
+    
+        <div id="pricing-cards">
+    
+           
+            <div class="price-card">
+    
+                <div class="price-card--header">
+                    <h4>Premium</h4>
+                    
+                </div>
+    
+                <div class="price-card--price">
+                    <div class="price-card--price-text">
+                        <div class="price-card--price-number toggle-price-content odometer" >2,250</div>
+                    </div>
+                    <div class="price-card--price-conditions">
+                        <div class="toggle-price-content" >Billed Annually</div>
+  
+                    </div>
+                </div>
+    
+                
+    
+                <div class="price-card--features">
+    
+                    <ul class="price-card--features--list">
+                        <li class="price-card--features--item has-tooltip">Exclusive Services
+                            <div class="tooltip-container"><strong>Exclusive Services</strong>
+                                <p  >Welcome to our exclusive premium services tailored to meet your unique needs. Our premium package offers unparalleled quality and attention to detail.</p>
+                            </div>
+                        </li>
+                        <li class="price-card--features--item has-tooltip">VIP Treatment
+                            <div class="tooltip-container"><strong>VIP Treatment</strong>
+                                <p>Elevate your project with our VIP treatment. Enjoy priority service, dedicated support, and custom solutions crafted just for you.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="price-card--features--item has-tooltip">Enhanced Quality
+                            <div class="tooltip-container"><strong>Enhanced Quality</strong>
+                                <p>Experience enhanced quality and precision with our premium services. From concept to delivery, we ensure every detail is meticulously crafted to perfection.</p>
+                            </div>
+                        </li>
+                        <li class="price-card--features--item has-tooltip">Personalized Attention
+                            <div class="tooltip-container"><strong>Personalized Attention</strong>
+                                <p>Receive personalized attention and dedicated support from our team of experts. Our premium services are designed to prioritize your project and deliver exceptional results.</p>
+                            </div>
+                        </li>
+
+                        <li class="price-card--features--item has-tooltip">Exclusivity
+                            <div class="tooltip-container"><strong>Exclusivity</strong>
+                                <p>OFrom premium features to personalized consultations, we offer an exclusive experience you won't find anywhere else.</p>
+                            </div>
+                        </li>
+    
+                        <li class="price-card--features--item has-tooltip">Tech support
+                            <div class="tooltip-container"><strong>Tech support</strong>
+                                <p>Phone, Email and Web Chat support, <br/>9am-9pm EST Mon-Fri, <br/>2pm-7pm EST Sat-Sun</p>
+                            </div>
+                        </li>
+                        
+                     
+    
+                    </ul>
+                    <button onclick="window.location.href='payment.html'" class="btn">Get started</button>
+                </div>
+    
+                <div class="price-card--mobile-features-toggle"></div>
+    
+            </div>
+            
+            <div class="price-card price-card--hero">
+    
+                <div class="price-card--header">
+                    <h4>Enterprise</h4>
+               
+                </div>
+                <div class="price-card--hero-text">
+                    Most Popular Plan
+                </div>
+    
+                <div class="price-card--price">
+                    <div class="price-card--price-text">
+                        <div class="price-card--price-number toggle-price-content odometer">900</div>
+                    </div>
+                    <div class="price-card--price-conditions">
+                        <div class="toggle-price-content" >Billed Annually</div>
+                   
+                    </div>
+                </div>
+    
+                <div class="price-card--features">
+                    <ul class="price-card--features--list">
+                        <li class="price-card--features--item has-tooltip">Exclusive Services
+                            <div class="tooltip-container"><strong>Exclusive Services</strong>
+                                <p  >Welcome to our exclusive premium services tailored to meet your unique needs. Our premium package offers unparalleled quality and attention to detail.</p>
+                            </div>
+                        </li>
+                        <li class="price-card--features--item has-tooltip">VIP Treatment
+                            <div class="tooltip-container"><strong>VIP Treatment</strong>
+                                <p>Elevate your project with our VIP treatment. Enjoy priority service, dedicated support, and custom solutions crafted just for you.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="price-card--features--item has-tooltip">Enhanced Quality
+                            <div class="tooltip-container"><strong>Enhanced Quality</strong>
+                                <p>Experience enhanced quality and precision with our premium services. From concept to delivery, we ensure every detail is meticulously crafted to perfection.</p>
+                            </div>
+                        </li>
+                        <li class="price-card--features--item has-tooltip">Personalized Attention
+                            <div class="tooltip-container"><strong>Personalized Attention</strong>
+                                <p>Receive personalized attention and dedicated support from our team of experts. Our premium services are designed to prioritize your project and deliver exceptional results.</p>
+                            </div>
+                        </li>
+
+                        <li class="price-card--features--item has-tooltip">Exclusivity
+                            <div class="tooltip-container"><strong>Exclusivity</strong>
+                                <p>OFrom premium features to personalized consultations, we offer an exclusive experience you won't find anywhere else.</p>
+                            </div>
+                        </li>
+    
+                        <li class="price-card--features--item has-tooltip">Tech support
+                            <div class="tooltip-container"><strong>Tech support</strong>
+                                <p>Phone, Email and Web Chat support, <br/>9am-9pm EST Mon-Fri, <br/>2pm-7pm EST Sat-Sun</p>
+                            </div>
+                        </li>
+                        
+    
+                    </ul>
+                    <button onclick="window.location.href='payment.html'" class="btn-pro">Get started</button>
+                </div>
+    
+                <div class="price-card--mobile-features-toggle"></div>
+    
+            </div>
+         
+            <div class="price-card">
+    
+                <div class="price-card--header">
+                    <h4>Basic</h4>
+    
+                </div>
+    
+                <div class="price-card--price">
+                    <div class="price-card--price-text only-yearly">
+                        <div class="price-card--price-number odometer">249</div>
+                        <div class="only-yearly--text"><span>Only Available Yearly</span></div>
+                    </div>
+                    <div class="price-card--price-conditions">
+                        <div>Billed Annually</div>
+    
+                    </div>
+                </div>
+    
+           
+    
+                <div class="price-card--features">
+                    <ul class="price-card--features--list">
+                        <li class="price-card--features--item has-tooltip">Exclusive Services
+                            <div class="tooltip-container"><strong>Exclusive Services</strong>
+                                <p  >Welcome to our exclusive premium services tailored to meet your unique needs. Our premium package offers unparalleled quality and attention to detail.</p>
+                            </div>
+                        </li>
+    
+                     
+                        <li class="price-card--features--item has-tooltip">VIP Treatment
+                            <div class="tooltip-container"><strong>VIP Treatment</strong>
+                                <p>Elevate your project with our VIP treatment. Enjoy priority service, dedicated support, and custom solutions crafted just for you.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="price-card--features--item has-tooltip">Enhanced Quality
+                            <div class="tooltip-container"><strong>Enhanced Quality</strong>
+                                <p>Experience enhanced quality and precision with our premium services. From concept to delivery, we ensure every detail is meticulously crafted to perfection.</p>
+                            </div>
+                        </li>
+                        <li class="price-card--features--item has-tooltip">Personalized Attention
+                            <div class="tooltip-container"><strong>Personalized Attention</strong>
+                                <p>Receive personalized attention and dedicated support from our team of experts. Our premium services are designed to prioritize your project and deliver exceptional results.</p>
+                            </div>
+                        </li>
+                        <li class="price-card--features--item has-tooltip">Tech support (limited)
+                            <div class="tooltip-container"><strong>Tech support (limited)</strong>
+                                <p>Email and Web Chat support, <br/>9am-9pm EST Mon-Fri, <br/>2pm-7pm EST Sat-Sun</p>
+                            </div>
+                        </li>
+    
+                        <li class="price-card--features--item has-tooltip tooltip-disabled features-disabled">Partner Success Manager
+                            <div class="tooltip-container"><strong>Partner Success Manager</strong>
+                                <p>One-on-one with a Vendasta Success Manager, who will provide sales training so you reach your goals quickly.</p>
+                            </div>
+                        </li>
+                      
+                    </ul>
+                    <button onclick="window.location.href='payment.html'" class="btn">Get started</button>
+                </div>
+    
+                <div class="price-card--mobile-features-toggle"></div>
+    
+            </div>
+           
+    
+        </div>
+       
+    
+    
+    </section>
+    
+</body>
+</html>

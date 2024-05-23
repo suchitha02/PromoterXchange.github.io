@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         @import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
+         *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+         
+         }
+         body{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            background:linear-gradient(135deg,#176b87,#041858);
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 50px;
+        }
+        .card{
+            position:relative;
+            width:350px;
+            height:190px;
+            background:#fff;
+            border-radius:20px;
+            box-shadow:0 35px 80px rgba(0,0,0,0.15);
+            transition:0.5s;
+        }
+        .card:hover{
+            height:450px;
+        }
+        .imgBx{
+            position:absolute;
+            left:50%;
+            top:-50px;
+            transform:translateX(-50%);
+            width:150px;
+            height:150px;
+            background:#fff;
+            border-radius:20px;
+            box-shadow:0 15px 50px rgba(0,0,0,0.35);
+            overflow:hidden;
+            transition:0.5s
+        }
+        .card:hover .imgBx{
+            width:250px;
+            height:250px;
+        }
+        .imgBx img{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        .card .content{
+            position:absolute;
+            width:100%;
+            height:100%;
+            display:flex;
+            justify-content:center;
+            align-items:flex-end;
+            overflow:hidden;
+        }
+        .card .content .details{
+            padding:10px;
+            text-align:center;
+            width:100%;
+            transition:0.5s;
+            transform:translateY(150px);
+        }
+        .card:hover .content .details{
+            transform:translateY(0px);
+        }
+        .card .content .details h2{
+            font-size:1.25em;
+            font-weight:600;
+            color:#555;
+            line-height:1.2em;
+        }
+        .card .content .details h2 span{
+            font-size:0.75em;
+            font-weight:500;
+            opacity:0.5;
+        }
+        .card .content .details .data{
+            display:flex;
+            justify-content:space-between;
+            margin:20px 0;
+        }
+        .card .content .details .data h3{
+            font-size:1em;
+            color:#555;
+            line-height:1.2em;
+            font-weight:600;
+        }
+        .card .content .details .data h3 span{
+            font-size:0.85em;
+            font-weight:400;
+            opacity:0.5;
+        }
+        .card .content .details .actionBtn{
+            display:flex;
+            justify-content:space-between;
+        }
+        .card .content .details .actionBtn button{
+            padding:10px 30px;
+            border-radius:5px;
+            border:none;
+            outline:none;
+            font-size:1em;
+            font-weight:500;
+            background:#d8bf36;
+            color:#fff;
+            cursor:pointer;
+        }
+        .card .content .details .actionBtn button:nth-child(2){
+            border:1px solid #999;
+            color:#999;
+            background:#fff;
+        }
+        .rating {
+            padding-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            color:rgba(255,226,52);
+           
+        }
+        .add-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            width:90px;
+            height:40px;
+            border:0;
+            color: white;
+            background-color: red;
+            border-radius: 7px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .add-button ion-icon {
+            color: white;
+            font-size: 1.25rem;
+        } 
+        .form-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        .form-container input[type=text], .form-container input[type=url] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+        }
+        .form-container input[type=text]:focus, .form-container input[type=url]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        .form-container .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+            border-radius: 5px;
+        }
+        .form-container .cancel {
+            background-color: red;
+            border-radius: 5px;
+        }
+        .form-container .btn:hover, .open-button:hover {
+            opacity: 1;
+        }
+        .card:nth-child(3) {
+            margin-bottom: 100px; 
+        }
+    </style>
+</head>
+<body>
+    <button class="add-button" onclick="openForm()"><ion-icon name="add"></ion-icon>Add</button>
+    <div class="form-popup" id="myForm">
+        <form class="form-container" onsubmit="addPromoter(event)">
+            <h2>Add Promoter</h2>
+
+            <label for="name"><b>Name</b></label>
+            <input type="text" placeholder="Enter Name" name="name" required>
+
+            <label for="role"><b>Role</b></label>
+            <input type="text" placeholder="Enter Role" name="role" required>
+
+            <label for="image"><b>Image URL</b></label>
+            <input type="url" placeholder="Enter Image URL" name="image" required>
+
+            <button type="submit" class="btn">Add</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+    <div class="card-container" id="cardContainer">
+    <div class="card">
+        <div class="imgBx">
+            <img src="images/meghajain.png">
+        </div>
+        <div class="content">
+            <div class="details">
+                <h2>Jodi H.<br><span>Cosmetics Freelancer</span>
+                    <div class="rating">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                      </div>
+                </h2>
+            <div class="data">
+                <a href="https://twitter.com/i/flow/login?redirect_after_login=%2FJodieGreat"><ion-icon name="logo-twitter" style="width:30px;height:30px;color:#1DA1F2"></ion-icon></a>
+                <a href="https://www.instagram.com/jodimury?igsh=emhtdHN6MWttNnNz"><ion-icon name="logo-instagram" style="width:30px;height:30px;color:black"></ion-icon></a>
+                <a href="https://www.linkedin.com/in/jodimichaelhorner/"><ion-icon name="logo-linkedin" style="width:30px;height:30px;color:#0077b5 "></ion-icon></a>
+                <a href=""><ion-icon name="logo-pinterest" style="width:30px;height:30px;color:#E60023"></ion-icon></a>
+                <a href="https://www.facebook.com/jodi.h.921/?locale=hi_IN"><ion-icon name="logo-facebook" style="width:30px;height:30px;color:#1877F2"></ion-icon></a>
+                <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+                <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            </div>
+            <div class="actionBtn">
+                <button onclick="requestPromoter('Jodi H.')">Request</button>
+                <a href="comoreinfo1.html"><button>More info</button></a>
+            </div>
+            </div>
+        </div>
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="card">
+        <div class="imgBx">
+            <img src="images/brittanylo.png">
+        </div>
+        <div class="content">
+            <div class="details">
+                <h2>Brittany Lo<br><span>CEO-Beia and Beautini</span>
+                    <div class="rating">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                      </div>
+                </h2>
+            <div class="data">
+                <a href="https://twitter.com/i/brittanyannlo"><ion-icon name="logo-twitter" style="width:30px;height:30px;color:#1DA1F2"></ion-icon></a>
+                <a href="https://www.instagram.com/brittany.lo?igsh=MXNvY3FhemlsOGR6bw=="><ion-icon name="logo-instagram" style="width:30px;height:30px;color:black"></ion-icon></a>
+                <a href="https://www.youtube.com/@brittanyannlo"><ion-icon name="logo-youtube" style="width:30px;height:30px;color:#FF0000"></ion-icon></a>
+                <a href="https://in.pinterest.com/search/pins/?q=brittany%20lo&rs=typed"><ion-icon name="logo-pinterest" style="width:30px;height:30px;color:	#E60023"></ion-icon></a>
+                <a href="https://www.facebook.com/brittany.lo.71/"><ion-icon name="logo-facebook" style="width:30px;height:30px;color:	#1877F2"></ion-icon></a>
+                <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+                <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            </div>
+            <div class="actionBtn">
+                <button onclick="requestPromoter('Brittany Lo')">Request</button>
+                <a href="comoreinfo3.html"><button>More info</button></a>
+            </div>
+            </div>
+        </div>
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div class="card">
+        <div class="imgBx">
+            <img src="images/bobbibrown.png">
+        </div>
+        <div class="content">
+            <div class="details">
+                <h2>Bobbi Brown<br><span>Founder-Bobbi Brown COsmetics</span>
+                    <div class="rating">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                      </div>
+                </h2>
+            <div class="data">
+                <a href="https://twitter.com/BobbiBrown"><ion-icon name="logo-twitter" style="width:30px;height:30px;color:#1DA1F2"></ion-icon></a>
+                <a href="https://www.instagram.com/bobbibrown?igsh=MWxpbnVmOGUzY2MwMg=="><ion-icon name="logo-instagram" style="width:30px;height:30px;color:black"></ion-icon></a>
+                <a href="https://www.youtube.com/@bobbibrown"><ion-icon name="logo-youtube" style="width:30px;height:30px;color:#FF0000"></ion-icon></a>
+                <a href="https://in.pinterest.com/search/pins/?q=bobbi%20brown&rs=typed"><ion-icon name="logo-pinterest" style="width:30px;height:30px;color:	#E60023"></ion-icon></a>
+                <a href="https://www.facebook.com/BobbiBrown/"><ion-icon name="logo-facebook" style="width:30px;height:30px;color:	#1877F2"></ion-icon></a>
+                <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+                <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            </div>
+            <div class="actionBtn">
+                <button onclick="requestPromoter('Bobbi Brown')">Request</button>
+                <a href="comoreinfo4.html"><button>More info</button></a>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+        
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+        function addPromoter(event) {
+            event.preventDefault();
+        
+            const name = event.target.querySelector('input[name="name"]').value;
+            const role = event.target.querySelector('input[name="role"]').value;
+            const image = event.target.querySelector('input[name="image"]').value;
+        
+            const cardContainer = document.getElementById('cardContainer');
+        
+            const newCard = document.createElement('div');
+            newCard.className = 'card';
+            newCard.innerHTML = `
+            &nbsp;&nbsp;&nbsp;<div class="imgBx">
+                    <img src="${image}" alt="${name}">
+                </div>
+                <div class="content">
+                    <div class="details">
+                        <h2>${name}<br><span>${role}</span>
+                            <div class="rating">
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star"></ion-icon>
+                                <ion-icon name="star"></ion-icon>
+                            </div>
+                        </h2>
+                        <div class="data">
+                            <a href="#"><ion-icon name="logo-twitter" style="width:30px;height:30px;color:#1DA1F2"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-instagram" style="width:30px;height:30px;color:black"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-linkedin" style="width:30px;height:30px;color:#0077b5 "></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-pinterest" style="width:30px;height:30px;color:#E60023"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-facebook" style="width:30px;height:30px;color:#1877F2"></ion-icon></a>
+                        </div>
+                        <div class="actionBtn">
+                            <button onclick="requestPromoter('${name}')">Request</button>
+                            <a href="#"><button>More info</button></a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        
+            cardContainer.appendChild(newCard);
+            closeForm();
+        } 
+        function requestPromoter(name) {
+    window.location.href = `loginpromoter.html?promoter=${encodeURIComponent(name)}`;
+}      
+
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons.min.js"></script>
+</body>
+</html>
